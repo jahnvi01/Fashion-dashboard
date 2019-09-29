@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import {OutTable, ExcelRenderer} from 'react-excel-renderer';
-import Dropzone from 'react-dropzone';
+import Navbar from './components/navbar';
+import 'antd/dist/antd.css';
+import { Steps } from 'antd';
 import { CSVLink, CSVDownload } from "react-csv";
 var csvData=[];
+const { Step } = Steps;
 class App extends Component {
   uploadfile(files){
     console.log(files[0].path);
@@ -34,24 +36,22 @@ class App extends Component {
   render() {
     return (
     <div className="App">
- 
+ <Navbar  />
  <div className="row" >
      <div className="col-md-12">
+       <div className="card">
 <form>
-<Dropzone onDrop={acceptedFiles => this.uploadfile(acceptedFiles)}>
-  {({getRootProps, getInputProps}) => (
-    <section>
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-    </section>
-  )}
-</Dropzone>
-<br  />
+<h4>Select file to convert into csv</h4>
+<Steps current={3}>
+    <Step  title="Choose file." />
+    <Step  title="Select type." />
+    <Step  title="download file" />
+  </Steps>
 <input type="file" onChange={(event)=>{this.fileHandler(event)}} style={{"padding":"10px"}} />
 </form>
-<CSVLink data={csvData}>Download me</CSVLink>;
+<CSVLink data={csvData}>Download me</CSVLink>
+</div>
+
     </div>
     </div>
     </div>
